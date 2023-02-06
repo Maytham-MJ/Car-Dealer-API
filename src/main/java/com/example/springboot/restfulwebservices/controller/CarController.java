@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@AllArgsConstructor
+@RestController // This is to make this class as a rest controller
+@AllArgsConstructor // This is to create a constructor with all the fields
 
 @RequestMapping("api/cars") // http://localhost:8080/api/cars
 public class CarController {
