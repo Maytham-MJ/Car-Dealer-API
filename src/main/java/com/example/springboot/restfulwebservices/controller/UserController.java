@@ -3,6 +3,7 @@ package com.example.springboot.restfulwebservices.controller;
 import com.example.springboot.restfulwebservices.dto.UserDto;
 import com.example.springboot.restfulwebservices.entity.User;
 import com.example.springboot.restfulwebservices.service.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class UserController {
     // create user
     //http://localhost:8080/api/users
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
+    public ResponseEntity<UserDto> createUser(@RequestBody @Valid  UserDto user) {
         UserDto savedUser = userService.createUser(user);
         return new ResponseEntity<>( savedUser, HttpStatus.CREATED);
     }
@@ -48,7 +49,7 @@ public class UserController {
     //Building Update User by id API
     //http://localhost:8080/api/users/1
     @PutMapping ("{id}")
-    public ResponseEntity<User> updateUser(@PathVariable ("id") Integer id, @RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable ("id") Integer id, @Valid @RequestBody User user) {
 
         user.setId(id);
         User updatedUser = userService.updateUser( user);
