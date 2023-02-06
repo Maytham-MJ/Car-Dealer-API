@@ -57,6 +57,8 @@ public class UserController {
     }
 
     //Building Delete User by id API
+//http://localhost:8080/api/users/1
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable("id") Integer id) {
