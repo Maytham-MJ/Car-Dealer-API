@@ -2,6 +2,8 @@ package com.example.springboot.restfulwebservices.service.IMPl;
 
 import com.example.springboot.restfulwebservices.dto.UserDto;
 import com.example.springboot.restfulwebservices.entity.User;
+import com.example.springboot.restfulwebservices.exception.ResouceNotFoundException;
+import com.example.springboot.restfulwebservices.mapper.AutoUserMapper;
 import com.example.springboot.restfulwebservices.mapper.UserMapper;
 import com.example.springboot.restfulwebservices.repositry.UserRepository;
 import com.example.springboot.restfulwebservices.service.UserService;
@@ -9,7 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class UserServiceIMPl implements UserService {
 
     private UserRepository userRepository;
+    private UserMapper userMapper;
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -28,17 +30,26 @@ public class UserServiceIMPl implements UserService {
 
 
         //Convert User Entity to UserDto
-        UserDto savedUserDto = UserMapper.mapToUserDto(saveUser);
-        return savedUserDto;
+        return UserMapper.mapToUserDto(saveUser);
 
 
     }
 
     @Override
-    public User getUserById(Integer id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.get();
+    public UserDto getUserById(Integer id) {
+        return null;
     }
+
+
+    @Override
+    public UserDto getUserById(int id) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new ResouceNotFoundException("User", "id", id));
+
+        return AutoUserMapper.MAPPER.MapToUserDto(user);
+    }
+
+
 
     @Override
     public List<User> getAllUsers() {

@@ -32,7 +32,7 @@ public class UserController {
     //http://localhost:8080/api/users/1
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") Integer id) {
+    public ResponseEntity<User> getUserById(@PathVariable("id") int id) {
         User user = userService.getUserById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
