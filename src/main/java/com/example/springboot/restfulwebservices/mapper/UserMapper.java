@@ -2,8 +2,11 @@ package com.example.springboot.restfulwebservices.mapper;
 
 import com.example.springboot.restfulwebservices.dto.UserDto;
 import com.example.springboot.restfulwebservices.entity.User;
+import org.springframework.context.annotation.Bean;
 
 public class UserMapper {
+
+    //Convert User JPA Entity to UserDto
     public static UserDto mapToUserDto(User user) {
         UserDto userDto = new UserDto(
         user.getId(),

@@ -20,4 +20,10 @@ public class ResouceNotFoundException extends RuntimeException{
         this.fieldValue = Long.valueOf(fieldValue);
     }
 
+    public ResouceNotFoundException(String resourceName) {
+    }
+
+    public String getResourceName() {
+        return resourceName;
+    }
 }
