@@ -1,5 +1,6 @@
 package com.example.springboot.restfulwebservices.dto;
 
+import com.example.springboot.restfulwebservices.entity.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class UserDto extends User {
 
        private int id;
        @NotEmpty // This is to  make sure that the firstName is not empty
@@ -21,6 +22,10 @@ public class UserDto {
        @NotEmpty // This is to  make sure that the email is not empty
        @Email
        private String email;
+
+
+
+
 
 
 
