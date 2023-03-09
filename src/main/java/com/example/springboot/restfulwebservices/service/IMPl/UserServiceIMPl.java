@@ -3,6 +3,7 @@ package com.example.springboot.restfulwebservices.service.IMPl;
 import com.example.springboot.restfulwebservices.dto.UserDto;
 import com.example.springboot.restfulwebservices.entity.User;
 
+import com.example.springboot.restfulwebservices.exception.ResourceNotFoundException;
 import com.example.springboot.restfulwebservices.mapper.AutoUserMapper;
 import com.example.springboot.restfulwebservices.mapper.UserMapper;
 import com.example.springboot.restfulwebservices.repositry.UserRepository;
@@ -62,11 +63,11 @@ public class UserServiceIMPl implements UserService {
     @Override
     public UserDto getUserById(int id) { //we are going to add Exception handling custom message.
 
-            User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+            User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 
 
 
-        Optional<User> optionalUser = userRepository.findById(id);
+//        Optional<User> optionalUser = userRepository.findById(id);
 
 //        return UserMapper.mapToUserDto(user);
 //        return modelMapper.map(user, UserDto.class);
@@ -85,15 +86,15 @@ public class UserServiceIMPl implements UserService {
 
     @Override
     public void deleteUser(Integer id) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        User user = optionalUser.get();
-        userRepository.delete(user);
+        User optionalUser = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+
+        userRepository.deleteById(id);
     }
 
 
     @Override
     public UserDto updateUser(UserDto user) {
-     User exisitingUser = userRepository.findById(user.getId()).get();
+     User exisitingUser = userRepository.findById(user.getId()).orElseThrow(() -> new ResourceNotFoundException("User", "id", user.getId()));
         exisitingUser.setFirstName(user.getFirstName());
         exisitingUser.setLastName(user.getLastName());
         exisitingUser.setEmail(user.getEmail());
