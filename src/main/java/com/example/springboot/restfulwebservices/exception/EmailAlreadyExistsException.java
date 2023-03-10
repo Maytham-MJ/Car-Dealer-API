@@ -12,6 +12,6 @@ public class EmailAlreadyExistsException extends RuntimeException{
     // Constructor
     public EmailAlreadyExistsException(String message) {
         super(message);
-        this.message = message;
+
     }
 }
