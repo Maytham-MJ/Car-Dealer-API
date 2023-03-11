@@ -12,15 +12,16 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class UserDto extends User {
 
        private int id;
-       @NotEmpty // This is to  make sure that the firstName is not empty
+       @NotEmpty(message = "User firstname should not be empty!")// This is to  make sure that the firstName is not empty
        private String firstName;
-       @NotEmpty // This is to  make sure that the lastName is not empty
+       @NotEmpty (message = " User lastname should not be empty! ")// This is to  make sure that the lastName is not empty
        private String lastName;
-       @NotEmpty // This is to  make sure that the email is not empty
-       @Email
+       @NotEmpty(message = "User email should not be empty") // This is to  make sure that the email is not empty
+       @Email (message = "User email should be valid") // This is to  make sure that the email is valid
        private String email;
 
 
