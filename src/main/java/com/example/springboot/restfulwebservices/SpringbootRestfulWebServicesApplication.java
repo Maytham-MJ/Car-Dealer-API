@@ -12,7 +12,8 @@ import org.springframework.context.annotation.ImportResource;
 @SpringBootApplication
 public class SpringbootRestfulWebServicesApplication {
 
-	@Bean // This is a bean tha
+	@Bean // This is a bean that will be used by Spring to inject the ModelMapper object into our controller.
+
 	// t will be used by Spring to inject the ModelMapper object into our controller.
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
