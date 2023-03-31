@@ -3,6 +3,7 @@ package com.example.springboot.restfulwebservices.service.IMPl;
 import com.example.springboot.restfulwebservices.dto.UserDto;
 import com.example.springboot.restfulwebservices.entity.User;
 
+import com.example.springboot.restfulwebservices.exception.EmailAlreadyExistsException;
 import com.example.springboot.restfulwebservices.exception.ResourceNotFoundException;
 import com.example.springboot.restfulwebservices.mapper.AutoUserMapper;
 import com.example.springboot.restfulwebservices.mapper.UserMapper;
@@ -30,6 +31,7 @@ public class UserServiceIMPl implements UserService {
 
 
 
+
         public  UserServiceIMPl(UserRepository userRepository, UserMapper userMapper) {
             this.userRepository = userRepository;
             this.userMapper = userMapper;
@@ -46,15 +48,22 @@ public class UserServiceIMPl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
+
         //Convert UserDto to User JPA Entity
 //        User user = UserMapper.mapToUser(userDto);
 //        User user = modelMapper.map(userDto, User.class);
+        //Check if email already exists
+        Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
+        if (optionalUser.isPresent()) {
+            throw new EmailAlreadyExistsException("Email already exists for this user.");
+        }
         User user = AutoUserMapper.MAPPER.MapToUser(userDto);
         //Save User Entity to DB
         User saveUser = userRepository.save(user);
         //Convert User Entity to UserDto
 //        UserDto saveUserDto = modelMapper.map(saveUser, UserDto.class);
         UserDto saveUserDto = AutoUserMapper.MAPPER.MapToUserDto(saveUser);
+
         return saveUserDto;
 
 
